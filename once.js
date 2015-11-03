@@ -66,31 +66,8 @@ var makeGrid = function(row, col, innerType) {
 };
 
 
-// onceEach - A version of _.each that also operates on characters in a string.
-var onceEach = function (anIterable, usersFunction) {
-    if (typeof anIterable === "string") {
-        for (var i = 0; i < anIterable.length; i++) {
-            newChar = usersFunction(anIterable[i], i, anIterable);
-        }
-        return newChar;
-    }
-    else if (Array.isArray(anIterable)) {
-        for (var i = 0; i < anIterable.length; i++) {
-            usersFunction(anIterable[i], i, anIterable);
-        }
-    }
-    else if (typeof anIterable === "object") {
-        var keyArr = Object.keys(anIterable);
-        for (var i = 0; i < keyArr.length; i++) {
-            usersFunction(anIterable[keyArr[i]], keyArr[i], anIterable, i);
-        }
-    }
-    return anIterable
-};
-
-
-// onceMap - A version of _.map that also operates on strings.
-var onceMap = function (anIterable, usersFunction) {
+// mapString - A version of _.map that operates on strings.
+var mapString = function (anIterable, usersFunction) {
     if (typeof anIterable === "string") {
         newString = ""
         for (var i = 0; i < anIterable.length; i++) {
@@ -99,20 +76,9 @@ var onceMap = function (anIterable, usersFunction) {
         }
         return newString;
     }
-    else if (Array.isArray(anIterable)) {
-        for (var i = 0; i < anIterable.length; i++) {
-            anIterable[i] = usersFunction(anIterable[i], i, anIterable);
-        }
+    else {
+        console.log ("String required for input")
     }
-    else if (typeof anIterable === "object") {
-        var keyArr = Object.keys(anIterable);
-        var length = keyArr.length;
-        for (var i = 0; i < length; i++) {
-            anIterable[keyArr[i]] = usersFunction(anIterable[keyArr[i]], anIterable[keyArr], anIterable, i);
-        }
-    }
-    return anIterable;
 };
-
 
 
