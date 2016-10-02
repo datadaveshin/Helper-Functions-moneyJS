@@ -1,5 +1,14 @@
 /**
 A version of each
+For strings the order of items returned is:
+currentChar, position, string, firstChar, lastChar, startPosition, endPostion, length
+
+For arrays the order of items returned is:
+currentItem, index, array, firstElement, lastElement, startIndex, endIndex, length
+
+For objects the order of items returned is:
+value, key, object, firstValue, lastValue, startKey, endKey, length
+
 */
 function $$each(collection, callback) {
     if (typeof collection === 'string') {
