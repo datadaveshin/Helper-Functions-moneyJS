@@ -1,4 +1,3 @@
-# once-js
-once.js is going to be a library of utilities.
-All other .js files are unfinished scripts that
-will be incorporated into once.js.
+# moneyJS 
+money.js is simply some JavaScript helper functions
+All other .js files are unfinished scripts
