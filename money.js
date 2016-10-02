@@ -1,84 +1,32 @@
-// pp - A dirty console.log substitute.
-var pp = function (x1, x2, x3, x4, x5, x6, x7, x8, x9, x10) {
-    var printList = [x1, x2, x3, x4, x5, x6, x7, x8, x9, x10];
-    var returnString = "";
-    function checkString(item){
-        if (typeof item === "string") {
-            item = '"' + item + '"';
+(function(){
+    /**
+    A version of each
+    For strings the order of items returned is:
+    currentChar, position, string, firstChar, lastChar, startPosition, endPostion, length
+
+    For arrays the order of items returned is:
+    currentItem, index, array, firstElement, lastElement, startIndex, endIndex, length
+
+    For objects the order of items returned is:
+    value, key, object, firstValue, lastValue, startKey, endKey, length
+
+    */
+    function $$each(collection, callback) {
+        if (typeof collection === 'string') {
+            collection = collection.split("")
+            for (let i = 0; i < collection.length; i++) {
+                callback(collection[i], i, collection.join(""), collection['0'], collection[collection.length-1], 0, collection.length - 1, collection.length);
+            }
         }
-        else {item = item}
-        return item;
-    }
-    for (i = 0; i < printList.length; i++){
-        if (printList[i] !== undefined) {
-            if (typeof printList[i] === "string" || printList[i] === "number") {
-                returnString += printList[i] + " ";
+        else if (Array.isArray(collection)) {
+            for (let i = 0; i < collection.length; i++) {
+                callback(collection[i], i, collection, collection['0'], collection[collection.length-1], 0, collection.length - 1, collection.length);
             }
-            else if (printList[i] === true){
-                returnString += true + " ";;
-            }
-            else if (printList[i] === false) {
-                returnString += false + " ";
-            }
-            else if (typeof printList[i] === "object") {
-                if (Array.isArray(printList[i])) {
-                    returnString += '[';
-                    for (var j = 0; j < printList[i].length; j++) {
-                        returnString += checkString(printList[i][j])
-                        if (j !== printList[i].length - 1) {
-                            returnString += ', ';
-                        }              
-                    }
-                    returnString += ']' + " ";
-                }
-                else {
-                    returnString += '{';
-                    var keyArr = Object.keys(printList[i]);
-                    for (var j = 0; j < keyArr.length; j++) {
-                        returnString += checkString([keyArr[j]]) + ": " + checkString(printList[i][keyArr[j]])
-                        if (j !== keyArr.length - 1) {
-                            returnString += ', ' ;
-                        }
-                    }
-                    returnString += '}' + " ";
-                }
-            }
-            else {
-                returnString += printList[i] + " ";
+        }
+        else if (typeof collection === 'object') {
+            for (let key in collection) {
+                callback(collection[key], key, collection, collection[Object.keys(collection)[0]], collection[(Object.keys(collection)[Object.keys(collection).length - 1])], Object.keys(collection)[0], Object.keys(collection)[Object.keys(collection).length - 1], Object.keys(collection).length);
             }
         }
     }
-    console.log(returnString);
-};
-
-
-// makeGrid - Makes a 2D grid within an array. User chooses what goes in the 
-//            inner most part of the grid.
-var makeGrid = function(row, col, innerType) {
-        grid = [];
-        for (i = 0; i < row; i++) {
-            grid.push([]);
-            for (j = 0; j < col; j++) {
-                grid[i].push(innerType);
-            }
-        }
-        return grid;
-};
-
-
-// mapString - A version of _.map that operates on strings.
-var mapString = function (anIterable, usersFunction) {
-    if (typeof anIterable === "string") {
-        newString = ""
-        for (var i = 0; i < anIterable.length; i++) {
-            newChar = usersFunction(anIterable[i], i, anIterable);
-            newString += newChar;
-        }
-        return newString;
-    }
-    else {
-        console.log ("String required for input")
-    }
-};
-
-
+})();
