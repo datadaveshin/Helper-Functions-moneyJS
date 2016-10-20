@@ -18,7 +18,7 @@ function $$each(collection, callback) {
     }
 }
 
-function $$map(collection, callback) {
+function $$map = function(collection, callback) {
     let isString = false
     if (typeof collection === 'string') {
         isString = true
@@ -27,11 +27,10 @@ function $$map(collection, callback) {
     var retArr = [];
     $$each(collection, function(item) {
             retArr.push(callback(item));
-        }
     })
-    return isString ? retArr.join("") : retArr;
+    // return isString ? retArr.join("") : retArr; // This version will return a string for a string
+    return retArr; // This will return an array for a string;
 }
-
 
 function $$filter(collection, predicate) {
     let isString = false
